@@ -1,0 +1,65 @@
+We selected the genes from gene expression omnibus information, get it from here:​‌
+Public resources included GEO Series GSE197267 describing biallelic loss-of-function mutations in MAD1L1 associated with an MVA-like syndrome, GEO Series GSE134780 describing the role of BUB1B, CEP57, and TRIP13 in Mosaic Variegated Aneuploidy syndrome. 
+then we got the coordinates from NCBI, e.g. https://www.ncbi.nlm.nih.gov/gene/?term=BUB1B ​‌
+NC_000015.10:40161069-40221123​‌
+Next scanning the VCF filer we got:​‌
+ Found 14 alternative variants in BUB1B
+ Found 4 alternative variants in CEP57
+ Found 3 alternative variants in TRIP13
+ Found 889 alternative variants in MAD1L1​‌
+ We ignored MAD1L1, the number 889 means noise. 
+Next using VEP online interface (https://jun2026.archive.ensembl.org/Tools/VEP)
+Then we filtered the results by IMPACT
+BUB1B ​‌
+15          40168264   40168264   G/A
+15          40180642   40180643   CT/C
+15          40181093   40181094   AT/A
+15          40182809   40182809   A/C
+15          40186692   40186692   G/A
+15          40187404   40187404   A/G
+15          40192892   40192892   C/T
+15          40193435   40193435   T/C
+15          40198239   40198239   G/GT
+15          40209701   40209701   T/G
+15          40216470   40216470   A/G
+15          40216568   40216569   TA/T
+15          40216570   40216571   TA/T
+15          40220612   40220612   T/G
+CEP57
+11         95793416   95793416   T/TTA
+11         95795499   95795499   C/CT
+11         95801248   95801248   G/A
+11         95830582   95830582   C/T
+TRIP13
+5          893128     893128     A/C
+5          893132     893132     G/C
+5          902436     902436     A/G
+#Uploaded_variation	Location	Allele	Consequence	IMPACT	SYMBOL
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained,NMD_transcript_variant	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained,NMD_transcript_variant	HIGH	BUB1B
+15_40209701_T/G	15:40209701-40209701	G	stop_gained	HIGH	BUB1B
+11_95795500_-/T	11:95795499-95795499	T	splice_polypyrimidine_tract_variant,intron_variant	LOW	CEP57
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+15_40220612_T/G	15:40220612-40220612	G	missense_variant	MODERATE	BUB1B
+equivalent:
+./vep --af --af_gnomade --appris --biotype --buffer_size 500 --check_existing --custom file=[path_to]/v4.1[path_to]/gnomad.v4.1.sv.sites.vcf.gz,format=vcf,short_name=gnomAD_SV,type=exact,fields=AF%AF_afr%AF_ami%AF_amr%AF_asj%AF_eas%AF_fin%AF_mid%AF_nfe%AF_rmi%AF_sas,gff_type=transcript --distance 5000 --mane --plugin CADD,sv=[path_to]/CADD_prescored_variants.tsv.gz --plugin ClinPred,file=[path_to]/ClinPred_hg38_sorted_tabbed.tsv.gz --plugin OpenTargets,file=[path_to]/open_targets_vep.tsv.bgz --plugin SpliceAI,snv=[path_to]/spliceai_scores.masked.snv.hg38.vcf.gz,indel=[path_to]/spliceai_scores.masked.indel.hg38.vcf.gz,snv_ensembl=[path_to]/spliceai_scores.raw.snv.ensembl_mane.grch38.110.vcf.gz --polyphen b --pubmed --regulatory --show_ref_allele --sift b --species homo_sapiens --symbol --transcript_version --tsl --uploaded_allele --cache --input_file [input_data] --output_file [output_file]
+
