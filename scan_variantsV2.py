@@ -23,7 +23,7 @@ def scan_vcf():
     # Dictionary to pool found variants by gene to check for compound-hets
     variants_by_gene = {gene: [] for gene in CANDIDATE_GENES}
 
-    print("🧬 Scanning target genomic regions for rare disease variants using PyVCF3...")
+    print("Scanning target genomic regions for rare disease variants using PyVCF3...")
 
     # Open the file in binary mode ('rb') and decode the stream line-by-line
     with gzip.open(VCF_FILE, "rb") as gz_file:
@@ -81,7 +81,7 @@ def scan_vcf():
                             }
                         )
 
-    # 3. Format into Hackathon rows based on your EPCR criteria
+    # 3. Format into Hackathon
     submission_rows = []
 
     for gene, vars_list in variants_by_gene.items():
@@ -94,7 +94,7 @@ def scan_vcf():
         het_variants = [v for v in vars_list if v["gt"] in ("0/1", "1/0", "0|1", "1|0")]
         hom_variants = [v for v in vars_list if v["gt"] in ("1/1", "1|1")]
 
-        # Scenario A: We found a compound-het pair (highly likely for MVA!)
+        # Scenario A: found a compound-het pair
         if len(het_variants) >= 2:
             # Take the first two heterozygous variants as a pair
             v1, v2 = het_variants[0], het_variants[1]
@@ -114,7 +114,7 @@ def scan_vcf():
                     "notes": f"Potential compound heterozygous causal pair in {gene} matching MVA symptoms.",
                 }
             )
-        # Scenario B: We found a homozygous mutation
+        # Scenario B: found a homozygous mutation
         elif hom_variants:
             v = hom_variants[0]
             submission_rows.append(
